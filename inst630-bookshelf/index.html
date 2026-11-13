@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Personal Bookshelf</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f8f0e4;color:#302722;font:1rem/1.5 system-ui,sans-serif}main,header>div{width:min(100% - 2rem,70rem);margin:auto}header{background:#54283b;color:#fff7e9;padding:3rem 0}h1,h2{font-family:Georgia,serif;line-height:1.1}h1{font-size:clamp(2.7rem,7vw,5rem);margin:0}header p{margin:.8rem 0 0}main{padding:2rem 0 4rem}form{background:#fffaf1;padding:1.25rem;border:1px solid #e1d2bf;border-radius:12px}h2{margin:0 0 1rem;font-size:1.55rem}.fields{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:1rem;align-items:end}label{display:grid;gap:.3rem;font-weight:600}input,select,button{font:inherit;min-height:44px;border-radius:5px;padding:.5rem .65rem;max-width:100%;width:100%}input,select{background:#fffdf7;color:inherit;border:1px solid #887668}button{background:#54283b;color:white;border:1px solid #54283b;cursor:pointer}button:hover{background:#71354e}:focus-visible{outline:3px solid #216354;outline-offset:3px}#message{min-height:1.5em;margin:1rem 0;color:#533145}.shelf{margin:0 0 1.75rem}.books{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:1rem;align-items:end;border-bottom:10px solid #79523d;padding:0 0 .3rem}.book{background:#e3e9d7;border-left:9px solid #576945;padding:1rem;min-width:0;border-radius:4px 9px 9px 4px;overflow-wrap:anywhere}.book:nth-child(3n+2){background:#f2d6c4;border-color:#9a5546}.book:nth-child(3n){background:#e8dce8;border-color:#775477}.book h3{font: bold 1.25rem Georgia,serif;margin:0}.book p{margin:.35rem 0 .8rem}.empty{margin:.4rem 0}.move{font-size:.9rem}@media(max-width:740px){.fields{grid-template-columns:1fr 1fr}}@media(max-width:450px){.fields{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div><h1>Personal Bookshelf</h1><p>Keep track of what you want to read, what you’re reading, and what you’ve finished.</p></div></header>
+<main>
+<form id="add-book">
+<h2>Add a book</h2>
+<div class="fields">
+<label>Title<input name="title" required maxlength="120"></label>
+<label>Author (optional)<input name="author" maxlength="100"></label>
+<label>Shelf<select name="status"></select></label>
+<button type="submit">Add book</button>
+</div>
+</form>
+<p id="message" role="status" aria-live="polite"></p>
+<div id="shelves"></div>
+</main>
+<script>
+const shelves = new Map([
+  ['want', 'Want to Read'],
+  ['reading', 'Currently Reading'],
+  ['finished', 'Finished']
+]);
+const storageKey = 'personal-bookshelf-v1';
+const examples = [
+  { id: 'sample-1', title: 'The Berry Pickers', author: 'Amanda Peters', status: 'want' },
+  { id: 'sample-2', title: 'The Night Circus', author: 'Erin Morgenstern', status: 'reading' },
+  { id: 'sample-3', title: 'Piranesi', author: 'Susanna Clarke', status: 'finished' }
+];
+const form = document.querySelector('#add-book');
+const container = document.querySelector('#shelves');
+const message = document.querySelector('#message');
+let books = examples;
+
+try {
+  const saved = JSON.parse(localStorage.getItem(storageKey));
+  if (Array.isArray(saved)) {
+    books = saved.filter(book => book && typeof book.id === 'string' &&
+      typeof book.title === 'string' && typeof book.author === 'string' && shelves.has(book.status));
+  }
+} catch {
+  message.textContent = 'Saved books could not be loaded.';
+}
+
+function fillOptions(select, selected) {
+  for (const [value, label] of shelves) {
+    select.add(new Option(label, value, false, value === selected));
+  }
+}
+
+function save(nextBooks, feedback) {
+  books = nextBooks;
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(books));
+    message.textContent = feedback;
+  } catch {
+    message.textContent = feedback + ' Browser storage is unavailable.';
+  }
+}
+
+function render(focusId) {
+  container.replaceChildren();
+  let focusTarget;
+  for (const [status, label] of shelves) {
+    const section = document.createElement('section');
+    section.className = 'shelf';
+    const heading = document.createElement('h2');
+    heading.textContent = label;
+    const row = document.createElement('div');
+    row.className = 'books';
+    const matching = books.filter(book => book.status === status);
+    if (!matching.length) {
+      const empty = document.createElement('p');
+      empty.className = 'empty';
+      empty.textContent = 'No books on this shelf yet.';
+      row.append(empty);
+    }
+    for (const book of matching) {
+      const card = document.createElement('article');
+      card.className = 'book';
+      const title = document.createElement('h3');
+      title.textContent = book.title;
+      const author = document.createElement('p');
+      author.textContent = book.author || 'Author unspecified';
+      const move = document.createElement('label');
+      move.className = 'move';
+      move.textContent = 'Move to shelf';
+      const select = document.createElement('select');
+      select.setAttribute('aria-label', 'Move ' + book.title + ' to shelf');
+      fillOptions(select, status);
+      select.addEventListener('change', () => {
+        const destination = select.value;
+        save(books.map(item => item.id === book.id ? { ...item, status: destination } : item),
+          book.title + ' moved to ' + shelves.get(destination) + '.');
+        render(book.id);
+      });
+      move.append(select);
+      card.append(title, author, move);
+      row.append(card);
+      if (book.id === focusId) focusTarget = select;
+    }
+    section.append(heading, row);
+    container.append(section);
+  }
+  focusTarget?.focus();
+}
+
+fillOptions(form.elements.status, 'want');
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  const title = form.elements.title.value.trim();
+  if (!title) {
+    message.textContent = 'Enter a book title.';
+    form.elements.title.focus();
+    return;
+  }
+  const author = form.elements.author.value.trim();
+  const status = form.elements.status.value;
+  save([...books, { id: crypto.randomUUID(), title, author, status }],
+    title + ' added to ' + shelves.get(status) + '.');
+  form.reset();
+  render();
+  form.elements.title.focus();
+});
+render();
+</script>
+</body>
+</html>
