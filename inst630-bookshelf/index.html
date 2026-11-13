@@ -3,133 +3,368 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Personal Bookshelf</title>
+<title>Shelf Notes · My Bookshelf</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f8f0e4;color:#302722;font:1rem/1.5 system-ui,sans-serif}main,header>div{width:min(100% - 2rem,70rem);margin:auto}header{background:#54283b;color:#fff7e9;padding:3rem 0}h1,h2{font-family:Georgia,serif;line-height:1.1}h1{font-size:clamp(2.7rem,7vw,5rem);margin:0}header p{margin:.8rem 0 0}main{padding:2rem 0 4rem}form{background:#fffaf1;padding:1.25rem;border:1px solid #e1d2bf;border-radius:12px}h2{margin:0 0 1rem;font-size:1.55rem}.fields{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:1rem;align-items:end}label{display:grid;gap:.3rem;font-weight:600}input,select,button{font:inherit;min-height:44px;border-radius:5px;padding:.5rem .65rem;max-width:100%;width:100%}input,select{background:#fffdf7;color:inherit;border:1px solid #887668}button{background:#54283b;color:white;border:1px solid #54283b;cursor:pointer}button:hover{background:#71354e}:focus-visible{outline:3px solid #216354;outline-offset:3px}#message{min-height:1.5em;margin:1rem 0;color:#533145}.shelf{margin:0 0 1.75rem}.books{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:1rem;align-items:end;border-bottom:10px solid #79523d;padding:0 0 .3rem}.book{background:#e3e9d7;border-left:9px solid #576945;padding:1rem;min-width:0;border-radius:4px 9px 9px 4px;overflow-wrap:anywhere}.book:nth-child(3n+2){background:#f2d6c4;border-color:#9a5546}.book:nth-child(3n){background:#e8dce8;border-color:#775477}.book h3{font: bold 1.25rem Georgia,serif;margin:0}.book p{margin:.35rem 0 .8rem}.empty{margin:.4rem 0}.move{font-size:.9rem}@media(max-width:740px){.fields{grid-template-columns:1fr 1fr}}@media(max-width:450px){.fields{grid-template-columns:1fr}}
+*{box-sizing:border-box}body{margin:0;background:#faf4e8;color:#243b34;font:15px/1.45 Inter,system-ui,sans-serif}header{background:#fffdf6;border-bottom:1px solid #ded4bd}.bar{max-width:1152px;margin:auto;min-height:70px;padding:12px 34px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:11px;font-size:20px;font-weight:650;margin-right:auto}.logo{display:grid;place-items:center;background:#32594c;width:36px;height:36px;border-radius:9px}.logo img{display:block}main{max-width:1152px;margin:auto;padding:28px 48px 24px}h1,h2{font-family:Lora,Georgia,serif;font-weight:400}h1{font-size:48px;line-height:1.18;margin:8px 0 5px}.eyebrow{font-size:13px;color:#32594c;font-weight:650;margin:0}.intro,.hint{color:#52645b;margin:0}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:26px 0 16px}.rating{margin-left:auto}button,select,input{font:inherit;color:inherit}button,select{background:#fffdf6;border:1px solid #ded4bd;border-radius:10px;padding:8px 15px;min-height:38px}button{cursor:pointer;font-weight:600}.bar button,.bar [aria-current]{border:0;background:transparent;padding:10px 16px;border-radius:10px;font-weight:600;color:#32594c}.bar [aria-current]{background:#e1ebda}.bar .primary,.primary,[aria-pressed=true]{background:#32594c;color:#fffdf6;border-color:#32594c}.bar .primary{min-height:44px}.search{display:flex;align-items:center;gap:10px;background:#fffdf6;border:1px solid #ded4bd;border-radius:10px;padding:0 14px;margin-bottom:18px;min-height:43px}.search input{background:none;border:0;flex:1;min-width:0;padding:9px 0}.search input::placeholder{color:#52645b}.search img,.logo img{flex:none}.cabinet-scroll{overflow:auto;border-radius:11px}.cabinet{width:1056px;height:352px;position:relative;background:#a86d3f;transform-origin:top left;border-radius:11px;overflow:hidden}.art{position:absolute;inset:0;pointer-events:none}.art p{margin:0;font-family:Lora,Georgia,serif}.art img{display:block}.cover{position:absolute;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;border:0;border-radius:4px;padding:8px 5px 6px 10px;min-height:0;font:11px/1.08 Lora,Georgia,serif;text-align:left;overflow:hidden;box-shadow:inset 5px 0 #0002}.cover img{align-self:center}.cover span{overflow-wrap:anywhere}.cover small{font:600 6.5px/1.15 Inter,system-ui,sans-serif}.cover:hover{filter:brightness(1.12)}.hint{font-size:13px;margin-top:9px}.extra{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.extra:empty{display:none}dialog{border:1px solid #ded4bd;border-radius:14px;background:#fffdf6;color:#243b34;width:min(92vw,420px);padding:24px}dialog::backdrop{background:#243b3477}dialog h2{margin:0 0 16px;font-size:28px}dialog label{display:grid;gap:4px;margin:12px 0}dialog input{width:100%;padding:8px;border:1px solid #9ba99b;border-radius:6px}dialog form menu{display:flex;gap:8px;padding:0;margin:16px 0 0}.error{color:#943b38;margin:4px 0}button:focus-visible,select:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid #b46d31;outline-offset:3px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}@media(max-width:740px){main{padding:24px 18px}.bar{padding:10px 18px}.rating{margin-left:0}h1{font-size:38px}}
 </style>
 </head>
 <body>
-<header><div><h1>Personal Bookshelf</h1><p>Keep track of what you want to read, what you’re reading, and what you’ve finished.</p></div></header>
+<header><nav class="bar" aria-label="Main">
+<div class="brand"><span class="logo"><img src="assets/imgOpenBook.svg" alt=""></span>Shelf Notes</div>
+<button type="button" data-planned="Friends’ Shelves">Friends’ Shelves</button>
+<span aria-current="page">My Bookshelf</span>
+<button type="button" data-planned="Customize Shelf">Customize Shelf</button>
+<button class="primary" id="open-add">+ Add book</button>
+</nav></header>
 <main>
+<p class="eyebrow">YOUR COLLECTION</p>
+<h1>My Bookshelf</h1>
+<p class="intro">The books I’ve read, the ones I’m in the middle of, and the ones I keep meaning to start.</p>
+<div class="toolbar" id="filters" aria-label="Filter books"></div>
+<label class="search"><img src="assets/imgSearchIcon.svg" alt=""><span class="sr-only">Search by title or author</span><input type="search" id="search" placeholder="Search by title or author"></label>
+<div class="cabinet-scroll" id="cabinet-scroll" tabindex="0" aria-label="Illustrated bookshelf">
+<div class="cabinet" id="cabinet">
+<div class="art" aria-hidden="true">
+        <div style="position:absolute;background:#cd9256;height:342px;left:5px;border-radius:8px;top:5px;width:1046px" ></div>
+        <div style="position:absolute;background:#78968b;height:103.333px;left:12px;border-radius:2px;top:9px;width:1032px" ></div>
+        <div style="position:absolute;background:#5c7c71;height:5px;left:12px;top:9px;width:1032px" ></div>
+        <div style="position:absolute;background:#cf8b68;height:59px;left:18px;border-radius:2px;top:49.33px;width:14px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:21px;border-radius:1px;top:59.33px;width:8px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:21px;border-radius:1px;top:98.33px;width:8px" ></div>
+        <div style="position:absolute;background:#536d7b;height:82px;left:37px;border-radius:2px;top:26.33px;width:19px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:40px;border-radius:1px;top:36.33px;width:13px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:40px;border-radius:1px;top:98.33px;width:13px" ></div>
+        <div style="position:absolute;background:#c6a454;height:73px;left:56px;border-radius:2px;top:35.33px;width:16px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:59px;border-radius:1px;top:45.33px;width:10px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:59px;border-radius:1px;top:98.33px;width:10px" ></div>
+        <div style="position:absolute;background:#e0c28d;height:91px;left:75px;border-radius:2px;top:17.33px;width:20px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:78px;border-radius:1px;top:27.33px;width:14px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:78px;border-radius:1px;top:98.33px;width:14px" ></div>
+        <div style="position:absolute;background:#6f5360;height:64px;left:94px;border-radius:2px;top:44.33px;width:17px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:97px;border-radius:1px;top:54.33px;width:11px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:97px;border-radius:1px;top:98.33px;width:11px" ></div>
+        <div style="position:absolute;height:98px;left:133px;top:12.33px;width:72px">
+          <img alt="" src="assets/imgVase.svg">
+        </div>
+        <div style="position:absolute;display:flex;height:104.989px;align-items:center;justify-content:center;left:222px;top:4.81px;width:81.849px">
+          <div style="transform:rotate(-6deg)">
+            <div style="height:98px;position:relative;width:72px">
+              <img alt="" src="assets/imgPrint.svg">
+            </div>
+          </div>
+        </div>
+        </a>
+        </div>
+        </div>
+        <div style="position:absolute;height:98px;left:820px;top:12.33px;width:72px">
+          <img alt="" src="assets/imgMug.svg">
+        </div>
+        <div style="position:absolute;background:#cf8b68;height:59px;left:954px;border-radius:2px;top:49.33px;width:14px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:957px;border-radius:1px;top:59.33px;width:8px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:957px;border-radius:1px;top:98.33px;width:8px" ></div>
+        <div style="position:absolute;background:#536d7b;height:82px;left:973px;border-radius:2px;top:26.33px;width:19px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:976px;border-radius:1px;top:36.33px;width:13px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:976px;border-radius:1px;top:98.33px;width:13px" ></div>
+        <div style="position:absolute;background:#c6a454;height:73px;left:992px;border-radius:2px;top:35.33px;width:16px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:995px;border-radius:1px;top:45.33px;width:10px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:995px;border-radius:1px;top:98.33px;width:10px" ></div>
+        <div style="position:absolute;background:#e0c28d;height:91px;left:1011px;border-radius:2px;top:17.33px;width:20px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:1014px;border-radius:1px;top:27.33px;width:14px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:1014px;border-radius:1px;top:98.33px;width:14px" ></div>
+        <div style="position:absolute;height:43px;left:647px;overflow:hidden;top:65.33px;width:125px">
+          <div style="position:absolute;background:#d0a766;height:14px;left:8px;border-radius:3px;top:29px;width:114px" ></div>
+          <div style="position:absolute;background:#f3d7a5;height:6px;left:18px;border-radius:1px;top:33px;width:95px" ></div>
+          <div style="position:absolute;background:#506f73;height:14px;left:0;border-radius:3px;top:15px;width:113px" ></div>
+          <div style="position:absolute;background:#f3d7a5;height:6px;left:10px;border-radius:1px;top:19px;width:94px" ></div>
+          <div style="position:absolute;background:#af6556;height:14px;left:12px;border-radius:3px;top:1px;width:97px" ></div>
+          <div style="position:absolute;background:#f3d7a5;height:6px;left:22px;border-radius:1px;top:5px;width:78px" ></div>
+        </div>
+        <div style="position:absolute;background:#ad6a38;height:12px;left:5px;border-radius:3px;top:108.33px;width:1046px" ></div>
+        <div style="position:absolute;background:#e8ad6b;height:2px;left:7px;border-radius:1px;top:109.33px;width:1042px" ></div>
+        <div style="position:absolute;background:#c2874f;height:1px;left:496.32px;border-radius:1px;top:114.33px;width:401.28px" ></div>
+        <div style="position:absolute;background:#78968b;height:103.333px;left:12px;border-radius:2px;top:120.33px;width:1032px" ></div>
+        <div style="position:absolute;background:#5c7c71;height:5px;left:12px;top:120.33px;width:1032px" ></div>
+        <div style="position:absolute;background:#d8a057;height:59px;left:18px;border-radius:2px;top:160.67px;width:14px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:21px;border-radius:1px;top:170.67px;width:8px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:21px;border-radius:1px;top:209.67px;width:8px" ></div>
+        <div style="position:absolute;background:#bd6b55;height:82px;left:37px;border-radius:2px;top:137.67px;width:19px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:40px;border-radius:1px;top:147.67px;width:13px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:40px;border-radius:1px;top:209.67px;width:13px" ></div>
+        <div style="position:absolute;background:#466779;height:73px;left:56px;border-radius:2px;top:146.67px;width:16px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:59px;border-radius:1px;top:156.67px;width:10px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:59px;border-radius:1px;top:209.67px;width:10px" ></div>
+        <div style="position:absolute;background:#d9bc88;height:91px;left:75px;border-radius:2px;top:128.67px;width:20px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:78px;border-radius:1px;top:138.67px;width:14px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:78px;border-radius:1px;top:209.67px;width:14px" ></div>
+        <div style="position:absolute;background:#556c50;height:64px;left:94px;border-radius:2px;top:155.67px;width:17px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:97px;border-radius:1px;top:165.67px;width:11px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:97px;border-radius:1px;top:209.67px;width:11px" ></div>
+        <div style="position:absolute;height:98px;left:142px;top:123.67px;width:72px">
+          <img alt="" src="assets/imgJar.svg">
+        </div>
+        <div style="position:absolute;height:98px;left:236px;top:123.67px;width:72px">
+          <img alt="" src="assets/imgBird.svg">
+        </div>
+        </div>
+        </div>
+        </div>
+        <div style="position:absolute;height:98px;left:860px;top:123.67px;width:72px">
+          <img alt="" src="assets/imgVase.svg">
+        </div>
+        <div style="position:absolute;background:#d8a057;height:59px;left:954px;border-radius:2px;top:160.67px;width:14px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:957px;border-radius:1px;top:170.67px;width:8px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:957px;border-radius:1px;top:209.67px;width:8px" ></div>
+        <div style="position:absolute;background:#bd6b55;height:82px;left:973px;border-radius:2px;top:137.67px;width:19px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:976px;border-radius:1px;top:147.67px;width:13px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:976px;border-radius:1px;top:209.67px;width:13px" ></div>
+        <div style="position:absolute;background:#466779;height:73px;left:992px;border-radius:2px;top:146.67px;width:16px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:995px;border-radius:1px;top:156.67px;width:10px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:995px;border-radius:1px;top:209.67px;width:10px" ></div>
+        <div style="position:absolute;background:#d9bc88;height:91px;left:1011px;border-radius:2px;top:128.67px;width:20px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:1014px;border-radius:1px;top:138.67px;width:14px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:1014px;border-radius:1px;top:209.67px;width:14px" ></div>
+        <div style="position:absolute;display:flex;height:68.998px;align-items:center;justify-content:center;left:717px;top:144.43px;width:88.088px">
+          <div style="transform:rotate(-5deg)">
+            <div style="background:#f5db9f;height:62px;overflow:hidden;position:relative;border-radius:2px;width:83px">
+              <div style="position:absolute;background:#d6b686;height:7px;left:27px;border-radius:2px;top:0;width:29px" ></div>
+              <div style="position:absolute;left:9px;color:#503d36;font-size:14px;top:13px;white-space:nowrap">
+                <p style="">books to</p>
+                <p style="">lend</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="position:absolute;background:#ad6a38;height:12px;left:5px;border-radius:3px;top:219.67px;width:1046px" ></div>
+        <div style="position:absolute;background:#e8ad6b;height:2px;left:7px;border-radius:1px;top:220.67px;width:1042px" ></div>
+        <div style="position:absolute;background:#c2874f;height:1px;left:496.32px;border-radius:1px;top:225.67px;width:401.28px" ></div>
+        <div style="position:absolute;background:#78968b;height:103.333px;left:12px;border-radius:2px;top:231.67px;width:1032px" ></div>
+        <div style="position:absolute;background:#5c7c71;height:5px;left:12px;top:231.67px;width:1032px" ></div>
+        <div style="position:absolute;background:#cf8b68;height:59px;left:18px;border-radius:2px;top:272px;width:14px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:21px;border-radius:1px;top:282px;width:8px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:21px;border-radius:1px;top:321px;width:8px" ></div>
+        <div style="position:absolute;background:#536d7b;height:82px;left:37px;border-radius:2px;top:249px;width:19px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:40px;border-radius:1px;top:259px;width:13px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:40px;border-radius:1px;top:321px;width:13px" ></div>
+        <div style="position:absolute;background:#c6a454;height:73px;left:56px;border-radius:2px;top:258px;width:16px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:59px;border-radius:1px;top:268px;width:10px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:59px;border-radius:1px;top:321px;width:10px" ></div>
+        <div style="position:absolute;background:#e0c28d;height:91px;left:75px;border-radius:2px;top:240px;width:20px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:78px;border-radius:1px;top:250px;width:14px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:78px;border-radius:1px;top:321px;width:14px" ></div>
+        <div style="position:absolute;background:#6f5360;height:64px;left:94px;border-radius:2px;top:267px;width:17px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:97px;border-radius:1px;top:277px;width:11px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:97px;border-radius:1px;top:321px;width:11px" ></div>
+        <div style="position:absolute;height:98px;left:142px;top:235px;width:72px">
+          <img alt="" src="assets/imgVase.svg">
+        </div>
+        <div style="position:absolute;height:98px;left:236px;top:235px;width:72px">
+          <img alt="" src="assets/imgPrint1.svg">
+        </div>
+        <div style="position:absolute;height:98px;left:860px;top:235px;width:72px">
+          <img alt="" src="assets/imgJar.svg">
+        </div>
+        <div style="position:absolute;background:#cf8b68;height:59px;left:954px;border-radius:2px;top:272px;width:14px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:957px;border-radius:1px;top:282px;width:8px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:957px;border-radius:1px;top:321px;width:8px" ></div>
+        <div style="position:absolute;background:#536d7b;height:82px;left:973px;border-radius:2px;top:249px;width:19px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:976px;border-radius:1px;top:259px;width:13px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:976px;border-radius:1px;top:321px;width:13px" ></div>
+        <div style="position:absolute;background:#c6a454;height:73px;left:992px;border-radius:2px;top:258px;width:16px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:995px;border-radius:1px;top:268px;width:10px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:995px;border-radius:1px;top:321px;width:10px" ></div>
+        <div style="position:absolute;background:#e0c28d;height:91px;left:1011px;border-radius:2px;top:240px;width:20px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:1014px;border-radius:1px;top:250px;width:14px" ></div>
+        <div style="position:absolute;background:#eacb93;height:2px;left:1014px;border-radius:1px;top:321px;width:14px" ></div>
+        <div style="position:absolute;height:98px;left:380.16px;top:233px;width:72px">
+          <img alt="" src="assets/imgBird.svg">
+        </div>
+        <div style="position:absolute;height:98px;left:528px;top:233px;width:72px">
+          <img alt="" src="assets/imgMug.svg">
+        </div>
+        <div style="position:absolute;height:96px;left:654.72px;top:235px;width:76px">
+          <img alt="" src="assets/imgPottedPlant.svg">
+        </div>
+        <div style="position:absolute;height:43px;left:450px;overflow:hidden;top:288px;width:125px">
+          <div style="position:absolute;background:#d0a766;height:14px;left:8px;border-radius:3px;top:29px;width:114px" ></div>
+          <div style="position:absolute;background:#f3d7a5;height:6px;left:18px;border-radius:1px;top:33px;width:95px" ></div>
+          <div style="position:absolute;background:#506f73;height:14px;left:0;border-radius:3px;top:15px;width:113px" ></div>
+          <div style="position:absolute;background:#f3d7a5;height:6px;left:10px;border-radius:1px;top:19px;width:94px" ></div>
+          <div style="position:absolute;background:#af6556;height:14px;left:12px;border-radius:3px;top:1px;width:97px" ></div>
+          <div style="position:absolute;background:#f3d7a5;height:6px;left:22px;border-radius:1px;top:5px;width:78px" ></div>
+        </div>
+        <div style="position:absolute;background:#ad6a38;height:12px;left:5px;border-radius:3px;top:331px;width:1046px" ></div>
+        <div style="position:absolute;background:#e8ad6b;height:2px;left:7px;border-radius:1px;top:332px;width:1042px" ></div>
+        <div style="position:absolute;background:#c2874f;height:1px;left:496.32px;border-radius:1px;top:337px;width:401.28px" ></div>
+</div>
+<div id="covers"></div>
+</div></div>
+<div id="extra" class="extra"></div>
+<p class="hint" id="message" role="status">Try opening The Last Orchard.</p>
+</main>
+<dialog id="add-dialog" aria-labelledby="add-heading">
 <form id="add-book">
-<h2>Add a book</h2>
-<div class="fields">
-<label>Title<input name="title" required maxlength="120"></label>
+<h2 id="add-heading">Add a book</h2>
+<label>Title<input name="title" required maxlength="120" autofocus></label>
 <label>Author (optional)<input name="author" maxlength="100"></label>
 <label>Shelf<select name="status"></select></label>
-<button type="submit">Add book</button>
-</div>
+<p id="error" class="error" role="alert"></p>
+<menu><button type="button" data-close>Cancel</button><button type="submit" class="primary">Add book</button></menu>
 </form>
-<p id="message" role="status" aria-live="polite"></p>
-<div id="shelves"></div>
-</main>
+</dialog>
+<dialog id="details" aria-labelledby="book-title">
+<h2 id="book-title"></h2><p id="book-author"></p>
+<label>Move to shelf<select id="move"></select></label>
+<button type="button" data-close>Done</button>
+</dialog>
 <script>
-const shelves = new Map([
-  ['want', 'Want to Read'],
-  ['reading', 'Currently Reading'],
-  ['finished', 'Finished']
-]);
-const storageKey = 'personal-bookshelf-v1';
+const shelves = new Map([['want','Want to Read'],['reading','Currently Reading'],['finished','Finished']]);
 const examples = [
-  { id: 'sample-1', title: 'The Berry Pickers', author: 'Amanda Peters', status: 'want' },
-  { id: 'sample-2', title: 'The Night Circus', author: 'Erin Morgenstern', status: 'reading' },
-  { id: 'sample-3', title: 'Piranesi', author: 'Susanna Clarke', status: 'finished' }
+ ['The Last Orchard','Mina Reyes','finished',335,10,78,99,0,'#654085','#f4d4ac'],
+ ['Moonlight Letters','Noor Idris','reading',415,28,63,80,5,'#254e68','#d3ecf3'],
+ ['A Place for Rain','Ella Brooks','finished',524,16,71,90,-4,'#ac5049','#ffe9ca'],
+ ['The Quiet Library','Leah Chen','want',296,133,67,84,-4,'#375d50','#dcecc0'],
+ ['Saltwater Summer','Maya Reed','reading',480,126,74,94,0,'#d79456','#372a34'],
+ ['The House of Fig Trees','Hana Ali','finished',565,139,63,80,5,'#84567d','#ffe7c7']
 ];
-const form = document.querySelector('#add-book');
-const container = document.querySelector('#shelves');
-const message = document.querySelector('#message');
-let books = examples;
-
+const key = 'personal-bookshelf-v1';
+const byId = id => document.getElementById(id);
+const add = byId('add-dialog');
+const form = byId('add-book');
+const details = byId('details');
+const move = byId('move');
+const message = byId('message');
+const search = byId('search');
+const cabinet = byId('cabinet');
+const viewport = byId('cabinet-scroll');
+const filters = byId('filters');
+const extra = byId('extra');
+const defaults = examples.map(([title,author,status],i) => ({id:'figma-'+i,title,author,status}));
+let books = defaults;
+let filter = 'all';
+let activeId;
+let feedback = 'Try opening The Last Orchard.';
 try {
-  const saved = JSON.parse(localStorage.getItem(storageKey));
-  if (Array.isArray(saved)) {
-    books = saved.filter(book => book && typeof book.id === 'string' &&
-      typeof book.title === 'string' && typeof book.author === 'string' && shelves.has(book.status));
+  const stored = JSON.parse(localStorage.getItem(key));
+  if (Array.isArray(stored)) books = stored.filter(book => book && typeof book.id === 'string' &&
+    typeof book.title === 'string' && typeof book.author === 'string' && shelves.has(book.status));
+  if (books.some(book => book.id.startsWith('sample-')) && !books.some(book => book.id.startsWith('figma-'))) {
+    books = [...defaults, ...books];
   }
-} catch {
-  message.textContent = 'Saved books could not be loaded.';
-}
-
-function fillOptions(select, selected) {
-  for (const [value, label] of shelves) {
-    select.add(new Option(label, value, false, value === selected));
-  }
-}
-
-function save(nextBooks, feedback) {
+} catch { feedback = 'Saved books could not be loaded.'; }
+function save(nextBooks, text) {
   books = nextBooks;
-  try {
-    localStorage.setItem(storageKey, JSON.stringify(books));
-    message.textContent = feedback;
-  } catch {
-    message.textContent = feedback + ' Browser storage is unavailable.';
-  }
+  feedback = text;
+  try { localStorage.setItem(key, JSON.stringify(books)); }
+  catch { feedback += ' Browser storage is unavailable.'; }
 }
-
-function render(focusId) {
-  container.replaceChildren();
-  let focusTarget;
-  for (const [status, label] of shelves) {
-    const section = document.createElement('section');
-    section.className = 'shelf';
-    const heading = document.createElement('h2');
-    heading.textContent = label;
-    const row = document.createElement('div');
-    row.className = 'books';
-    const matching = books.filter(book => book.status === status);
-    if (!matching.length) {
-      const empty = document.createElement('p');
-      empty.className = 'empty';
-      empty.textContent = 'No books on this shelf yet.';
-      row.append(empty);
-    }
-    for (const book of matching) {
-      const card = document.createElement('article');
-      card.className = 'book';
-      const title = document.createElement('h3');
-      title.textContent = book.title;
-      const author = document.createElement('p');
-      author.textContent = book.author || 'Author unspecified';
-      const move = document.createElement('label');
-      move.className = 'move';
-      move.textContent = 'Move to shelf';
-      const select = document.createElement('select');
-      select.setAttribute('aria-label', 'Move ' + book.title + ' to shelf');
-      fillOptions(select, status);
-      select.addEventListener('change', () => {
-        const destination = select.value;
-        save(books.map(item => item.id === book.id ? { ...item, status: destination } : item),
-          book.title + ' moved to ' + shelves.get(destination) + '.');
-        render(book.id);
-      });
-      move.append(select);
-      card.append(title, author, move);
-      row.append(card);
-      if (book.id === focusId) focusTarget = select;
-    }
-    section.append(heading, row);
-    container.append(section);
-  }
-  focusTarget?.focus();
+function openBook(book) {
+  activeId = book.id;
+  byId('book-title').textContent = book.title;
+  byId('book-author').textContent = book.author || 'Author unspecified';
+  move.value = book.status;
+  details.showModal();
 }
-
-fillOptions(form.elements.status, 'want');
-form.addEventListener('submit', event => {
+function render() {
+  filters.replaceChildren();
+  for (const [value,label] of [['all','All books'], ...shelves]) {
+    const button = document.createElement('button');
+    button.textContent = label + ' · ' + books.filter(b => value === 'all' || b.status === value).length;
+    button.setAttribute('aria-pressed', String(value === filter));
+    button.dataset.filter = value;
+    button.onclick = () => { filter = value; render(); filters.querySelector('[aria-pressed=true]').focus(); };
+    filters.append(button);
+  }
+  const rating = document.createElement('button');
+  rating.className = 'rating';
+  rating.textContent = 'Any rating ▾';
+  rating.onclick = () => { message.textContent = 'Rating filters are planned for a later version.'; };
+  filters.append(rating);
+  const covers = byId('covers');
+  covers.replaceChildren();
+  extra.replaceChildren();
+  const query = search.value.trim().toLowerCase();
+  const visible = books.filter(b => (filter === 'all' || filter === b.status) &&
+    (b.title.toLowerCase().includes(query) || b.author.toLowerCase().includes(query)));
+  let addedIndex = 0;
+  visible.forEach(book => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.dataset.book = book.id;
+    button.setAttribute('aria-label','Open '+book.title);
+    button.onclick = () => openBook(book);
+    const original = defaults.findIndex(item => item.id === book.id);
+    const addedSlot = original < 0 ? addedIndex++ : -1;
+    if (addedSlot >= 2 || window.innerWidth <= 740) {
+      button.textContent = book.title;
+      extra.append(button);
+      if (addedSlot >= 2) return;
+    }
+    const cover = button.cloneNode();
+    cover.onclick = () => openBook(book);
+    const [,,,x,y,w,h,angle,bg,ink] = examples[original] || ['', '', '', 315 + addedSlot * 425, 245, 64, 86, 0, '#32594c', '#fff3d5'];
+    cover.className = 'cover';
+    Object.assign(cover.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px',
+      transform:'rotate('+angle+'deg)',background:bg,color:ink});
+    const title = document.createElement('span');
+    title.textContent = book.title;
+    const art = document.createElement('img');
+    art.src = 'assets/imgCoverIllustration'+(original || '')+'.svg';
+    art.alt = '';
+    const author = document.createElement('small');
+    author.textContent = book.author;
+    cover.append(title);
+    if (original >= 0) cover.append(art);
+    cover.append(author);
+    covers.append(cover);
+  });
+  message.textContent = visible.length ? feedback : 'No books match this view.';
+}
+function fitShelf() {
+  const scale = Math.min(1, Math.max(660,viewport.clientWidth)/1056);
+  cabinet.style.zoom = scale;
+}
+for (const [value,label] of shelves) {
+  form.elements.status.add(new Option(label,value));
+  move.add(new Option(label,value));
+}
+byId('open-add').onclick = () => { byId('error').textContent = ''; add.showModal(); };
+document.querySelectorAll('[data-close]').forEach(button => { button.onclick = () => button.closest('dialog').close(); });
+document.querySelectorAll('[data-planned]').forEach(button => {
+  button.onclick = () => { message.textContent = button.dataset.planned+' is planned for a later version.'; };
+});
+form.addEventListener('submit',event => {
   event.preventDefault();
   const title = form.elements.title.value.trim();
   if (!title) {
-    message.textContent = 'Enter a book title.';
+    byId('error').textContent = 'Enter a book title.';
     form.elements.title.focus();
     return;
   }
-  const author = form.elements.author.value.trim();
   const status = form.elements.status.value;
-  save([...books, { id: crypto.randomUUID(), title, author, status }],
-    title + ' added to ' + shelves.get(status) + '.');
+  save([...books,{id:crypto.randomUUID(),title,author:form.elements.author.value.trim(),status}],
+    title+' added to '+shelves.get(status)+'.');
+  filter = 'all';
+  search.value = '';
   form.reset();
+  add.close();
   render();
-  form.elements.title.focus();
 });
+move.addEventListener('change',() => {
+  const book = books.find(item => item.id === activeId);
+  if (!book) return;
+  save(books.map(item => item.id === activeId ? {...item,status:move.value} : item),
+    book.title+' moved to '+shelves.get(move.value)+'.');
+  filter = 'all';
+  render();
+});
+details.addEventListener('close',() => {
+  document.querySelectorAll('[data-book]').forEach(button => {
+    if (button.dataset.book === activeId && document.activeElement === document.body) button.focus();
+  });
+});
+search.addEventListener('input',render);
+new ResizeObserver(fitShelf).observe(viewport);
+window.matchMedia('(max-width: 740px)').addEventListener('change',render);
 render();
 </script>
 </body>

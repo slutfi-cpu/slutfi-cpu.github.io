@@ -1,0 +1,11 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="72" height="98" viewBox="0 0 72 98" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="jar">
+<path id="Vector" d="M24 55H50V64L57 72V90C57 94 54 96 51 96H22C18 96 16 94 16 90V72L24 64V55Z" fill="#D79F56" stroke-width="2" stroke="#A56A39"/>
+<path id="Vector_2" d="M51 51H23C21.8954 51 21 51.8954 21 53V57C21 58.1046 21.8954 59 23 59H51C52.1046 59 53 58.1046 53 57V53C53 51.8954 52.1046 51 51 51Z" fill="#9F6C48"/>
+<path id="Vector_3" d="M49 73H24C22.8954 73 22 73.8954 22 75V84C22 85.1046 22.8954 86 24 86H49C50.1046 86 51 85.1046 51 84V75C51 73.8954 50.1046 73 49 73Z" fill="#F8DDAA"/>
+<g id="Vector_4">
+<path d="M29 79H44Z" fill="black"/>
+<path d="M29 79H44" stroke-width="2" stroke="#9F6C48"/>
+</g>
+</g>
+</svg>
